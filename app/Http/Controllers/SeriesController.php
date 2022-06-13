@@ -83,7 +83,10 @@ class SeriesController extends Controller
      */
     public function edit(Series $series): View
     {
-        return view('series.edit')->with('series', $series);
+        $seasons = $series->seasons()->with('episodes')->get();
+        return view('series.edit')
+            ->with('seasons', $seasons)
+            ->with('series', $series);
     }
 
     /**
