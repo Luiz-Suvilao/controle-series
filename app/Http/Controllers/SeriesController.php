@@ -8,6 +8,7 @@ use App\Models\Season;
 use App\Models\Series;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class SeriesController extends Controller
 {
@@ -38,6 +39,7 @@ class SeriesController extends Controller
      */
     public function store(SeriesFormRequest $request): RedirectResponse
     {
+        DB::beginTransaction();
         /** @var Series $serie */
         $serie = Series::create($request->all());
         $seasons = [];
@@ -61,6 +63,7 @@ class SeriesController extends Controller
         }
         Episode::insert($episodes);
 
+        DB::commit();
         return to_route('series.index')
             ->with('mensagem.sucesso', "Série '{$serie->name}' criada com sucesso.");
     }
