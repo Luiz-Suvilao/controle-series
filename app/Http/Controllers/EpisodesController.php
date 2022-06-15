@@ -16,7 +16,10 @@ class EpisodesController extends Controller
      */
     public function index(Season $season): View
     {
-        return view('episodes.index', ['episodes' => $season->episodes]);
+        return view('episodes.index', [
+            'episodes' => $season->episodes,
+            'messageSuccess' => session('mensagem.sucesso')
+        ]);
     }
 
     /**
@@ -30,6 +33,6 @@ class EpisodesController extends Controller
         $episodeRepository = resolve(IEpisodeRepository::class);
         $episodeRepository->watchEpisode($request, $season);
 
-        return to_route('episodes.index', $season->id);
+        return to_route('episodes.index', $season->id)->with('mensagem.sucesso', 'Episódios assistidos com sucesso!');
     }
 }
