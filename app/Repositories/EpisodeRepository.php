@@ -21,7 +21,7 @@ class EpisodeRepository implements IEpisodeRepository
         $watchedEpisodesId = $request->episodes;
 
         $season->episodes->each(function (Episode $episode) use ($watchedEpisodesId) {
-            $episode->watched = in_array($episode->id, $watchedEpisodesId);
+            $episode->watched = in_array($episode->id, $watchedEpisodesId ?? []);
         });
 
         $season->push();
