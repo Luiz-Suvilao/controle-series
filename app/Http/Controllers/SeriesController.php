@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\Authenticator;
 use App\Http\Requests\SeriesFormRequest;
 use App\Models\Series;
 use App\Repositories\Interfaces\ISeriesRepository;
@@ -10,6 +11,11 @@ use Illuminate\Http\RedirectResponse;
 
 class SeriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(Authenticator::class)->except('index');
+    }
+
     /**
      * @return View
      */

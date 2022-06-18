@@ -9,6 +9,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ route('series.index') }}">Home</a>
+            @auth
+            <a href="{{ route('login.logout') }}">Sair</a>
+            @endauth
+
+            @guest
+                <a href="{{ route('login') }}">Entrar</a>
+            @endguest
+        </div>
+    </nav>
+
     <div class="container mt-4">
         <h1> {{ $pageTitle }} </h1>
 
